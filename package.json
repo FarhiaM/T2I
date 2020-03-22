@@ -1,0 +1,11 @@
+{
+  "name": "instastory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "instastory.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Farhia M",
+  "license": "ISC"
+}
