@@ -28,12 +28,41 @@ function tweetEvent(tweet) {
                 backgroundColor: 'white',
                 lineSpacing: 10,
                 textAlign: 'center',
-                padding: 300
+                padding: 200
             }));
 
-            if (err) {
-                console.log(err.message);
-            }
+            var filePath = 'out.png';
+            T.postMediaChunked({ file_path: filePath }, function(err, data, response) {
+
+                if (err) {
+                    console.log(err.message);
+                }
+            })
+
+            var b64content = fs.readFileSync('out.png', { encoding: 'base64' })
+
+            T.post('media/upload', { media_data: b64content }, function(err, data, response) {
+
+                var mediaIdStr = data.media_id_string
+                var meta_params = { media_id: mediaIdStr, alt_text: { text: imageText } }
+
+                T.post('media/metadata/create', meta_params, function(err, data, response) {
+                    if (!err) {
+                        var params = {
+                            status: '@' + tweet.user.screen_name,
+                            in_reply_to_status_id: '' + tweet.in_reply_to_status_id,
+                            media_ids: [mediaIdStr]
+                        }
+
+                        T.post('statuses/update', params, function(err, data, response) {
+                            console.log("Posted image" + JSON.stringify(data))
+                        })
+                    }
+                })
+                if (err) {
+                    console.log(err.message);
+                }
+            })
         })
 
     }
