@@ -11,15 +11,14 @@ stream.on('tweet', tweetEvent);
 
 function tweetEvent(tweet) {
 
-    var name = tweet.user.screen_name;
-    var txt = tweet.text;
-    var id = tweet.id_str;
-
+    //Original tweet and author
     var tweet_mentioned_under = tweet.in_reply_to_status_id_str;
     var tweet_author = tweet.in_reply_to_screen_name;
+    var txt = tweet.text;
 
     if (txt.includes('@InstaStoryTweet')) {
 
+        //Get text of the tweet we are mentioned in
         T.get('statuses/show/:id', { id: tweet_mentioned_under }, function(err, data) {
 
             var imageText = data.text + '\n \n @' + tweet_author;
