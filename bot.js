@@ -15,6 +15,7 @@ function tweetEvent(tweet) {
     var tweet_mentioned_under = tweet.in_reply_to_status_id_str;
     var tweet_author = tweet.in_reply_to_screen_name;
     var txt = tweet.text;
+    var mention = tweet.id_str;
 
     if (txt.includes('@InstaStoryTweet')) {
 
@@ -49,13 +50,13 @@ function tweetEvent(tweet) {
                 T.post('media/metadata/create', meta_params, function(err, data, response) {
                     if (!err) {
                         var params = {
-                            status: '@' + tweet.user.screen_name,
-                            in_reply_to_status_id: '' + tweet.in_reply_to_status_id,
+                            status: '@' + tweet.user.screen_name + " ",
+                            in_reply_to_status_id: '' + mention,
                             media_ids: [mediaIdStr]
                         }
 
                         T.post('statuses/update', params, function(err, data, response) {
-                            console.log("Posted image" + JSON.stringify(data))
+                            onsole.log("Posted reply with image");
                         })
                     }
                 })
