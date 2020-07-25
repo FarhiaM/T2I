@@ -2,7 +2,6 @@
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
-config.js
 out.png
 
 ### Node ###
