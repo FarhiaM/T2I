@@ -1,6 +1,6 @@
 var Twit = require('twit');
 var config = require('./config.js');
-var T = new Twit(config);
+var T = new Twit(config.twitterApp);
 var fs = require('fs');
 var text2png = require('text2png');
 
