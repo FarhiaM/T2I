@@ -1,1 +1,1 @@
-worker: node twitter.js
+worker: node index.js
